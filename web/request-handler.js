@@ -9,11 +9,11 @@ exports.handleRequest = function (request, response) {
   //on GET
   if (request.url === '/') {
     if (request.method === 'GET') {
-      console.log('its a get to the / endpoint');
-      response.writeHead(200, httpHelpers.headers);
-      response.end('' + fs.readFile('web/public/index.html', function(err, data) {
-        console.log('err:', err, 'data:', data);
-      }));
+      fs.readFile(archive.paths.siteAssets + '/index.html', function(err, data) {
+        response.writeHead(200, {'Content-Type': 'text/html'});
+        response.write(data);
+        response.end(data);
+      });
     } else {
       response.writeHead(405, httpHelpers.headers);
       response.end('405: Method not allowd');
@@ -22,5 +22,5 @@ exports.handleRequest = function (request, response) {
   }
 
   //on POST 
-  response.end(archive.paths.list);
+  //response.end(archive.paths.list);
 };
