@@ -14,8 +14,6 @@ exports.handleRequest = function (request, response) {
         response.write(data);
         response.end(data);
       });
-    } else if (request.method === 'POST') {
-      archive.addUrlToList();
     } else {
       response.writeHead(405, httpHelpers.headers);
       response.end('405: Method not allowd');
