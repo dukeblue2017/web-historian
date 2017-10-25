@@ -43,9 +43,19 @@ exports.isUrlInList = function(url, callback) {
 };
 
 exports.addUrlToList = function(url, callback) {
+  fs.appendFile(this.paths.list, url, function(err) {
+    callback();
+  });
 };
 
 exports.isUrlArchived = function(url, callback) {
+  fs.readdir(this.paths.archivedSites, function(err, files) {
+    if (err) {
+      callback(null, err);
+    } else {
+      callback(files.includes(url));
+    }
+  });
 };
 
 exports.downloadUrls = function(urls) {
